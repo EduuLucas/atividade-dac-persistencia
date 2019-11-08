@@ -1,13 +1,14 @@
 package com.edu.ifpb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "enderecos")
 public class Endereco {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String logradouro;
     private String numero;
     private String bairro;
@@ -15,13 +16,17 @@ public class Endereco {
     private String estado;
     private String cep;
 
-    public Endereco(String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
+    @OneToOne
+    private Participante participante;
+
+    public Endereco(String logradouro, String numero, String bairro, String cidade, String estado, String cep, Participante participante) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.cep = cep;
+        this.participante = participante;
     }
 
     public Endereco() {
@@ -73,5 +78,21 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
     }
 }

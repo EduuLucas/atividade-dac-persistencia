@@ -1,21 +1,26 @@
 package com.edu.ifpb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "contatos")
 public class Contato {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String telefoneResidencial;
     private String telefoneComercial;
     private String telefoneCelular;
 
-    public Contato(String telefoneResidencial, String telefoneComercial, String telefoneCelular) {
+    @OneToOne
+    private Participante participante;
+
+    public Contato(String telefoneResidencial, String telefoneComercial, String telefoneCelular, Participante participante) {
         this.telefoneResidencial = telefoneResidencial;
         this.telefoneComercial = telefoneComercial;
         this.telefoneCelular = telefoneCelular;
+        this.participante = participante;
     }
 
     public Contato() {
@@ -43,5 +48,13 @@ public class Contato {
 
     public void setTelefoneCelular(String telefoneCelular) {
         this.telefoneCelular = telefoneCelular;
+    }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
     }
 }

@@ -2,8 +2,10 @@ package com.edu.ifpb.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "inscricoes")
@@ -17,13 +19,17 @@ public class Inscricao {
     private String tipoEvento;
     private String tipoParticipacao;
 
-    public Inscricao(Integer id, String status, LocalDate dataInscricao, Double preco, String tipoEvento, String tipoParticipacao) {
+    @ManyToOne
+    private Participante participante;
+
+    public Inscricao(Integer id, String status, LocalDate dataInscricao, Double preco, String tipoEvento, String tipoParticipacao, Participante participante) {
         this.id = id;
         this.status = status;
         this.dataInscricao = dataInscricao;
         this.preco = preco;
         this.tipoEvento = tipoEvento;
         this.tipoParticipacao = tipoParticipacao;
+        this.participante = participante;
     }
 
     public Inscricao() {
@@ -75,5 +81,13 @@ public class Inscricao {
 
     public void setTipoParticipacao(String tipoParticipacao) {
         this.tipoParticipacao = tipoParticipacao;
+    }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
     }
 }

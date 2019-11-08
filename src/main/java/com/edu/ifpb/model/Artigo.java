@@ -1,10 +1,9 @@
 package com.edu.ifpb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "artigos")
@@ -19,7 +18,10 @@ public class Artigo implements Serializable {
     private String urlDownload;
     private LocalDate dataSubmissao;
 
-    public Artigo(Integer id, String titulo, String orientador, String coautores, String modalidade, String urlDownload, LocalDate dataSubmissao) {
+    @ManyToOne
+    private Participante participante;
+
+    public Artigo(Integer id, String titulo, String orientador, String coautores, String modalidade, String urlDownload, LocalDate dataSubmissao, Participante participante) {
         this.id = id;
         this.titulo = titulo;
         this.orientador = orientador;
@@ -27,6 +29,7 @@ public class Artigo implements Serializable {
         this.modalidade = modalidade;
         this.urlDownload = urlDownload;
         this.dataSubmissao = dataSubmissao;
+        this.participante = participante;
     }
 
     public Artigo() {
@@ -87,4 +90,14 @@ public class Artigo implements Serializable {
     public void setDataSubmissao(LocalDate dataSubmissao) {
         this.dataSubmissao = dataSubmissao;
     }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
+    }
+
+
 }
